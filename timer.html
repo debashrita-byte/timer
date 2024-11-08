@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Starting Countdown Timer</title>
+    <style>
+        #timer {
+            font-size: 2em;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+    </style>
+    <script>
+        // Countdown timer function
+        function startCountdown(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    display.textContent = "Time's up!";
+                    clearInterval(timer); // Stops the timer once it hits 0
+                }
+            }, 1000);
+        }
+
+        // When the window loads, start the timer
+        window.onload = function () {
+            let countdownTime = 60 * 30; // Set the time in seconds (5 minutes here)
+            let display = document.querySelector('#timer');
+            startCountdown(countdownTime, display); // Starts the countdown immediately
+        };
+    </script>
+</head>
+<body>
+    <div id="timer">Loading...</div> <!-- Display timer here -->
+</body>
+</html>
