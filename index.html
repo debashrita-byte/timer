@@ -10,12 +10,18 @@
             font-family: Arial, sans-serif;
             color: #333;
         }
+        #message {
+            font-size: 2em;
+            font-family: Arial, sans-serif;
+            color: red;
+            display: none; /* Initially hidden */
+        }
     </style>
     <script>
         // Countdown timer function
-        function startCountdown(duration, display) {
+        function startCountdown(duration, display, message) {
             let timer = duration, minutes, seconds;
-            setInterval(function () {
+            const interval = setInterval(function () {
                 minutes = parseInt(timer / 60, 10);
                 seconds = parseInt(timer % 60, 10);
 
@@ -25,8 +31,9 @@
                 display.textContent = minutes + ":" + seconds;
 
                 if (--timer < 0) {
-                    display.textContent = "Time's up!";
-                    clearInterval(timer); // Stops the timer once it hits 0
+                    clearInterval(interval); // Stop the timer when it reaches 0
+                    display.style.display = 'none'; // Hide the timer
+                    message.style.display = 'block'; // Show "Time's up!" message
                 }
             }, 1000);
         }
@@ -34,12 +41,15 @@
         // When the window loads, start the timer
         window.onload = function () {
             let countdownTime = 60 * 30; // Set the time in seconds (5 minutes here)
-            let display = document.querySelector('#timer');
-            startCountdown(countdownTime, display); // Starts the countdown immediately
+            let display = document.querySelector('#timer'); // Select the timer display
+            let message = document.querySelector('#message'); // Select the "Time's up!" message
+            startCountdown(countdownTime, display, message); // Start the countdown
         };
     </script>
 </head>
 <body>
     <div id="timer">Loading...</div> <!-- Display timer here -->
+    <div id="message">Time's up!</div> <!-- Hidden message initially -->
 </body>
 </html>
+
